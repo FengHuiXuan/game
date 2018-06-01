@@ -69,7 +69,7 @@
 						this.login_kuang = true
 					}
 				}catch(e){
-	               alert(e)
+	              window.location.href = 'https://treasure.17link.cc'
 	            } 
 			}
 			 
