@@ -5,19 +5,27 @@
     </div>
 	<transition name="fade">
     <div class="tickets_go" @touchend='touchendDom' v-show="preferentialTicket">
-    	<div class="tickets_go_gongxi"><img src="../image/gongxihuode.png" /></div>
-    	<div class="tickets_go_baoxing" ><img 
-    		@touchstart='touchstartDom'
-    		@touchmove='touchmoveDom'
-    		src="../image/admissiontickets.jpg" /></div>
+    	<div class="tickets_go_gongxi"><img  onclick="return false" src="../image/gongxihuode.png" /></div>
+		<div class="lookIMG"><span>点击查看大图，大图可长按保存到手机相册</span></div>
+    	<div class="tickets_go_baoxing" @click="openImg" >
+		<img onclick="return false" src="https://treasure.17link.cc/static/img/admissiontickets.7b02ecb.jpg" />
+		<!--<img @touchstart='touchstartDom'@touchmove='touchmoveDom'src="../image/admissiontickets.jpg" />-->
+		
+		</div>
     	<div class="tickets_go_huoqu">
     		<div class="datibgse" @click="datibgseling">
-					领取入场券
-				</div>
+				领取入场券
+			</div>
     	</div>
     </div>
+	
+	</transition>
+	<!--<transition name="fade">
+		<div class="openImg"  v-show="openImgstate">
+			<img @click="openImgmax" src="../image/admissiontickets.jpg" />
+		</div>
 	</transition>	
-	<!--<transition  v-on:after-enter="afterEnter" name="answerMistake">
+	<transition  v-on:after-enter="afterEnter" name="answerMistake">
 		<div class="answerMistake" v-show="pop_up">
 			<span>回答错误</span>
 		</div>
@@ -45,7 +53,7 @@
 	</transition>	
 		<div class="godati">
 			<div class="godaticen">
-				<div v-show="gongxiyouhui" class="congratulationGet">
+				<div v-show="gongxiyouhui" class="congratulationGet">	
 					<img onclick="return false" src="../image/shenmi2.png"/>
 					<img onclick="return false" src="../image/sehnmi1bg.png"/>
 				</div>
@@ -93,6 +101,7 @@ export default {
 		  DateGetTime:0,
 		  parentHeight:'',
 		  dimoffsetTop:"",
+		  openImgstate:false
 	    }
   },
   async created(){
@@ -110,9 +119,17 @@ export default {
 				window.location.href = 'https://treasure.17link.cc'
 			} 			
 		}
-  	
 	},
   methods:{
+	openImg(e){
+		wx.previewImage({
+			current: 'https://treasure.17link.cc/static/img/admissiontickets.7b02ecb.jpg', // 当前显示图片的http链接
+			urls: ['https://treasure.17link.cc/static/img/admissiontickets.7b02ecb.jpg'] // 需要预览的图片http链接列表
+		});
+	},
+	 openImgmax(){
+	// 	this.openImgstate = false
+	},
   	touchstartDom(e){
   		this.parentHeight = e.target.offsetParent.offsetHeight
   		this.scrollHeight = e.target.offsetHeight
@@ -126,82 +143,80 @@ export default {
   		if(pY<0 && pY>this.parentHeight-this.scrollHeight ){
   			e.target.style.top = pY+'px' 
   		}
-
   	},
   	touchendDom(e){
   		console.log(e)
   	},
-		lookList(){ //查看排行榜
-		  this.$router.push({path:"/rankingList"})
-		},
+	lookList(){ //查看排行榜
+		this.$router.push({path:"/rankingList"})
+	},
 		//afterEnter(){ 
 		//	this.pop_up = false
 		//},
-		  datibgseling(){ //领取优惠券
-		  	this.preferentialTicket = false
-		  	this.gongxiyouhui = true
-		  },
-			subit(){ //提交 回答问题
-				let that = this
-				if(that.issueListItemIndex == -1) return
-				if(!that.issueListItem.answer[that.issueListItemIndex].correct){				
-					Toast({message: '回答错误',duration: 500});
-					//that.pop_up = true
-					return
-				} 
-				that.dataStateIndex++
-				that.issueListItemIndex = -1
-				if(that.dataStateIndex >= 12){ //答题通过
-					let dateTime =  Math.round((new Date().getTime()- that.DateGetTime)/1000) 
-					let getData = JSON.parse(getItem('MY_USER_INFO'))
-					if(!getData) return 
-					let objData = {
-						id:getData.id,
-						time:dateTime
-					}
-					that.$http.post(`${RM}/home/questions`,objData).then(res => {
-						console.log(res)
-						if(res.data.state == 0){
-							Toast({message: res.data.message,duration: 2000});
-						}else if(res.data.state == 1){
-							MessageBox('提示', '恭喜您答题通过用时'+dateTime+'s');
-						}
-					})
-					that.dataState = false
-					that.preferentialTicket = true
-					return
-				} 
-				let index = that.dataStateIndex
-				that.issueListItem = that.issueList[index]
-			},
-			begindati(){ //打开宝箱回答问题
-				let that = this
-				let data = that.issueList.sort((a,b) => {
-					return Math.random()-0.5
-				})
-				
-				that.DateGetTime = new Date().getTime()
-				let getData = JSON.parse(getItem('MY_USER_INFO'))
-				if(!getData) return 
-				that.$http.get(`${RM}/home/getcount/${getData.id}`).then(res => {
-					console.log(res)
-					if(res.data.state == 1){
-						if (res.data.sum < 3) {
-							MessageBox.confirm('你还有'+(3-res.data.sum )+'次答题机会确定开始答题?').then(action => {
-		  				that.issueList = data
-							that.dataState = true
-							that.issueListItem = that.issueList[0]
-						});
-						}else if(res.data.sum >= 3){
-							MessageBox('提示', '您已没有答题机会');
-						}
-					}
-				})
-				
-			},
-			issueListItemIndexitem(index){ //答题ictive
-				this.issueListItemIndex = index
+	datibgseling(){ //领取优惠券
+	this.preferentialTicket = false
+	this.gongxiyouhui = true
+	},
+	subit(){ //提交 回答问题
+		let that = this
+		if(that.issueListItemIndex == -1) return
+		if(!that.issueListItem.answer[that.issueListItemIndex].correct){				
+			Toast({message: '回答错误',duration: 500});
+			//that.pop_up = true
+			return
+		} 
+		that.dataStateIndex++
+		that.issueListItemIndex = -1
+		if(that.dataStateIndex >= 12){ //答题通过
+			let dateTime =  Math.round((new Date().getTime()- that.DateGetTime)/1000) 
+			let getData = JSON.parse(getItem('MY_USER_INFO'))
+			if(!getData) return 
+			let objData = {
+				id:getData.id,
+				time:dateTime
 			}
+			that.$http.post(`${RM}/home/questions`,objData).then(res => {
+				console.log(res)
+				if(res.data.state == 0){
+					Toast({message: res.data.message,duration: 2000});
+				}else if(res.data.state == 1){
+					MessageBox('提示', '恭喜您答题通过用时'+dateTime+'s');
+				}
+			})
+			that.dataStateIndex = 0
+			that.dataState = false
+			that.preferentialTicket = true
+			return
+		} 
+		let index = that.dataStateIndex
+		that.issueListItem = that.issueList[index]
+	},
+	begindati(){ //打开宝箱回答问题
+		let that = this
+		let data = that.issueList.sort((a,b) => {
+			return Math.random()-0.5
+		})	
+		that.DateGetTime = new Date().getTime()
+		let getData = JSON.parse(getItem('MY_USER_INFO'))
+		if(!getData) return 
+		that.$http.get(`${RM}/home/getcount/${getData.id}`).then(res => {
+			console.log(res)
+			if(res.data.state == 1){
+				if (res.data.sum < 3) {
+					MessageBox.confirm('你还有'+(3-res.data.sum )+'次答题机会确定开始答题?').then(action => {
+				that.issueList = data
+					that.dataState = true
+					that.issueListItem = that.issueList[0]
+				});
+				}else if(res.data.sum >= 3){
+					MessageBox('提示', '您已没有答题机会');
+				}
+			}
+		})
+	},
+	issueListItemIndexitem(index){ //答题ictive
+		this.issueListItemIndex = index
+	}
 
   }
 }
@@ -209,6 +224,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.lookIMG{
+    color: #bbb;
+    font-size: .24rem;
+}
+.openImg{
+	z-index:1000;
+	position:fixed;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	display:flex;
+	background: #000;
+	justify-content: center;
+    align-items: center;
+}
+.openImg>img{
+	max-height: 100%;
+    max-width: 100%;
+}
 .animation_count_infinite{
 	animation-iteration-count: infinite;
 }
@@ -254,13 +289,16 @@ export default {
 	height: 5rem;
 	overflow: hidden;
 	position: relative;
-}
+}/*
 .tickets_go_baoxing>img{
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 7.5rem;
-
+	
+}*/
+.tickets_go_baoxing>img{
+height:5rem;
 }
 .tickets_go_huoqu{
 	display: flex;

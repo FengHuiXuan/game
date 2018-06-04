@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  	<audio  loop="loop" src="static/mi.mp3" autoplay="autoplay"></audio>
+  	<audio  loop="loop" id="bgAudio" src="../static/mi.mp3" autoplay="autoplay"></audio>
 	  <transition name="component-fade" mode="out-in">
 	    <router-view/>
 	  </transition>
@@ -8,8 +8,64 @@
 </template>
 
 <script>
+import {countDown,RM,weixin,setItem,getItem,sha1,generateMixed} from './method.js'
+ 
+
 export default {
-  name: 'App'
+  name: 'App',
+  created(){
+    // try{  }catch(e){}
+    // async    await 
+        // var bgAudio = document.getElementById('bgAudio');
+        
+        // this.$http.get(`${RM}/home/getsig`).then(res => {
+        //     console.log(res)
+        //     if(res.data){
+        //         let datas = res.data                 
+        //         wx.config({
+        //             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //             appId: datas.appId, // 必填，公众号的唯一标识
+        //             timestamp: datas.timestamp, // 必填，生成签名的时间戳
+        //             nonceStr: datas.nonceStr, // 必填，生成签名的随机串
+        //             signature:  datas.signature,// 必填，签名
+        //             jsApiList: ['ready','error','previewImage'] // 必填，需要使用的JS接口列表
+        //         });
+        //         bgAudio.play();
+        //         document.addEventListener("WeixinJSBridgeReady", function () {
+        //             bgAudio.play();
+        //         }, false);
+
+        //     }
+        // })
+        // this.$http.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxf56e899a56088dbc&secret=c86d184e788328615e586a3ad787a158`).then(res => {
+        //     console.log(1,res)
+        //      this.$http.get(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${res.data.access_token}&type=jsapi`).then(res => {
+        //         console.log(2,res)  
+        //            let time = new Date().getTime()
+        //            let non = generateMixed(32)
+        //             wx.config({
+        //                 debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //                 appId: 'wxf56e899a56088dbc', // 必填，公众号的唯一标识
+        //                 timestamp: time, // 必填，生成签名的时间戳
+        //                 nonceStr: non, // 必填，生成签名的随机串
+        //                 signature:  sha1(`jsapi_ticket=${ res.data.ticket}&noncestr=${non}&timestamp=${time}&url=${'https://treasure.17link.cc'}`),// 必填，签名
+        //                 jsApiList: ['ready','error','previewImage'] // 必填，需要使用的JS接口列表
+        //             });
+        //     })
+        // })
+
+    
+    },
+    mounted(){
+        var bgAudio = document.getElementById('bgAudio');
+       
+        bgAudio.play();
+        // 兼容在微信里自动播放
+        document.addEventListener("WeixinJSBridgeReady", function () {
+        
+            bgAudio.play();
+        }, false);
+    }       
 }
 </script>
 

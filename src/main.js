@@ -20,7 +20,9 @@ function isweixin() {
 				return false;
 		}
 }
-if(isweixin()){
+let state = true
+let pr = state?isweixin():true
+if(pr){
 	new Vue({
 		el: '#app',
 		components: { App },

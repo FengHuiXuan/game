@@ -1,14 +1,15 @@
 <template>
 <div class="rankingList_box">
+	
 	<div class="rankingList_box_h">
- 		<div class="rankingList_box_bar">
+ 	<!--<div class="rankingList_box_bar">
  			<div 
  				@click="ranking_tabber(1)"
  				:class='rankingList_tabber == 1?"rankingList_active":""'><span>个人</span></div>
  			<div 
 			 	@click="ranking_tabber(2)"
  				:class='rankingList_tabber == 2?"rankingList_active":""'><span>团队</span></div>
- 		</div>
+ 		</div>-->
  		<div class="rankingList_box_barder">
  			<div class="rankingList_box_barder1"><span>{{rankingList_tabber == 1 ?'姓名':rankingList_tabber == 2?'团队':""}}</span></div>
  			<div class="rankingList_box_barder2"><span v-show="rankingList_tabber == 1">团队</span></div>
@@ -35,8 +36,6 @@
 				
 			</div>
 		</li>
-		
-		
 	</ul>
 	<div class="rankingList_button">
 		<div @click="returnHome">返回首页</div>
@@ -49,7 +48,7 @@
 	export default{
 		data(){
 			return {
-				rankingList_tabber:1,
+				rankingList_tabber:2,
 				ranking_List:[]
 			}
 		},
@@ -69,9 +68,8 @@
 	               window.location.href = 'https://treasure.17link.cc'
 	     		}	
 			}
-			console.log(123)
-			this.personageList()
-			
+		
+			this.teamList()
 		},
 		methods:{
 			ranking_tabber(id){
@@ -103,6 +101,7 @@
 				})
 			},
 			returnHome(){
+				
 				this.$router.push({path:"/"})
 			}
 		}
@@ -118,8 +117,9 @@
 	height: 100%;
 }
 .rankingList_{
-	margin-top: 3.25rem;
-	
+	margin-top: 3rem;
+	z-index:1000;
+	position: relative;
 }
 .rankingList_li:nth-child(1){
 	padding-top:.2rem;
@@ -225,7 +225,7 @@
 	left: 0;
 	right: 0;
 	top: 0;
-	
+	padding-top:1.8rem;
 	height: 3.25rem;
 	background-image: url(../image/paihangbangbg.png);
 	background-size:7.5rem ;

@@ -72,8 +72,6 @@
 	              window.location.href = 'https://treasure.17link.cc'
 	            } 
 			}
-			 
-			
 		},
 		methods:{
 			submitPhone(){//提交
@@ -97,13 +95,6 @@
 					})
 				}
 				
-			
-				//window.location.href = 'https://treasure.17link.cc/home/getuser'
-				
-//				this.$http.post(`${RM}/home/login`).then(res => {
-//					console.log(res)
-//				})
-				//this.login_kuang = !this.login_kuang
 			},
 			async getCode(){//获取优惠码
 				let that = this

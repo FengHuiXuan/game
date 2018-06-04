@@ -17,6 +17,13 @@ module.exports = {
         pathRewrite: {
           '^/apis': ''
         }
+      },
+      '/api': {
+        target: 'https://api.weixin.qq.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     },
 
