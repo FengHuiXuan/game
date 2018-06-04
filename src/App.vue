@@ -8,12 +8,13 @@
 </template>
 
 <script>
-import {countDown,RM,weixin,setItem,getItem,sha1,generateMixed} from './method.js'
+import {countDown,RM,weixin,setItem,getItem,sha1,generateMixed,removeItem} from './method.js'
  
 
 export default {
   name: 'App',
   created(){
+    removeItem('MY_USER_INFO')
     // try{  }catch(e){}
     // async    await 
         // var bgAudio = document.getElementById('bgAudio');

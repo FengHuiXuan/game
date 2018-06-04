@@ -12,8 +12,6 @@ function countDown(that,n){
 		countDown(that,that.countDownTime)
 	},1000)
 }
-
-
 const getItem = item => {
     return localStorage.getItem(item)
 }
@@ -23,13 +21,8 @@ const setItem = (item,value) => {
 const removeItem = item => {
     localStorage.removeItem(item)
 }
-
-
-
 let product = true 
 let RM = product ? 'https://treasure.17link.cc': '/apis'
-
-
 var weixin = {
     config: {
         url:'https://treasure.17link.cc/home/getuser',

@@ -85,9 +85,10 @@
 					this.$http.post(`${RM}/home/putuser`,objs).then(res => {
 						console.log(res)
 						if(res.data.state == 1){
-							Toast({message: res.data.message,duration: 2000});
 							this.login_kuang = false
-							setItem('MY_USER_INFO',JSON.stringify(res.data.data));
+							let datas = {id:res.data.data}
+							setItem('MY_USER_INFO',JSON.stringify(datas));
+							Toast({message: res.data.message,duration: 2000});
 						}else if(res.data.state == 0){
 							Toast({message: res.data.message,duration: 2000});
 						}
@@ -126,16 +127,16 @@
 	           } 
 			},
 			challengeBox(){//宝箱作战
-			 	this.$http.post(`${RM}/home/getuser`).then(res => {			
-					console.log('这是logingetuser',res)
-					if(res.data.state == 1){
-						let data = res.data.data
-						setItem('MY_USER_INFO',JSON.stringify(data));
-						this.$router.push({path:"/home"})
-					}else if(res.data.state == 0){ 
-						this.login_kuang = true
-					}
-			 	})
+				this.$router.push({path:"/home"})
+			 	// this.$http.post(`${RM}/home/getuser`).then(res => {			
+				// 	if(res.data.state == 1){
+				// 		let data = res.data.data
+				// 		setItem('MY_USER_INFO',JSON.stringify(data));
+				// 		this.$router.push({path:"/home"})
+				// 	}else if(res.data.state == 0){ 
+				// 		this.login_kuang = true
+				// 	}
+			 	// })
 			}
 		},
 	}

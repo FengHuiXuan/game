@@ -204,10 +204,10 @@ export default {
 			if(res.data.state == 1){
 				if (res.data.sum < 3) {
 					MessageBox.confirm('你还有'+(3-res.data.sum )+'次答题机会确定开始答题?').then(action => {
-				that.issueList = data
-					that.dataState = true
-					that.issueListItem = that.issueList[0]
-				});
+						that.issueList = data
+						that.dataState = true
+						that.issueListItem = that.issueList[0]
+					});
 				}else if(res.data.sum >= 3){
 					MessageBox('提示', '您已没有答题机会');
 				}
