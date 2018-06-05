@@ -27,11 +27,13 @@
 				<div class="rankingList_box_barder1">
 					<!--<span v-show="rankingList_tabber == 1">{{item.user_name}}</span><span v-show="rankingList_tabber == 2">{{item.team_cate}}-{{item.team_type}}</span>-->
 					<span>{{rankingList_tabber == 1 ? item.user_name : item.team_cate+'-'+item.team_type}}</span>
+					
 				</div>
  				<div class="rankingList_box_barder2"><span v-show="rankingList_tabber == 1">{{item.team_cate}}-{{item.team_type}}</span></div>
  				<div class="rankingList_box_barder3">
  					<!--<span v-show="rankingList_tabber == 1">{{item.min_time}}</span><span v-show="rankingList_tabber == 2">{{item.ave}}</span>-->
- 					<span>{{rankingList_tabber == 1 ? item.min_time : item.ave}}</span>
+					<span>{{rankingList_tabber == 1 ? item.min_time : item.ave}}</span>
+ 					
  				</div>
 				
 			</div>
@@ -53,7 +55,6 @@
 			}
 		},
 		async created(){
-			
 			if(!JSON.parse(getItem('MY_USER_INFO'))){
 				try{  
 					let res = await this.$http.post(`${RM}/home/getuser`)
@@ -68,7 +69,6 @@
 	               window.location.href = 'https://treasure.17link.cc'
 	     		}	
 			}
-		
 			this.teamList()
 		},
 		methods:{
@@ -101,7 +101,6 @@
 				})
 			},
 			returnHome(){
-				
 				this.$router.push({path:"/"})
 			}
 		}
@@ -115,11 +114,12 @@
 }
 .rankingList_box{
 	height: 100%;
+	background: #181b22;
+	height: 100%;
 }
 .rankingList_{
-	margin-top: 3rem;
-	z-index:1000;
-	position: relative;
+	padding-top: 3rem;
+	background: #181b22;
 }
 .rankingList_li:nth-child(1){
 	padding-top:.2rem;
@@ -222,11 +222,13 @@
 }
 .rankingList_box_h{
 	position: fixed;
+	z-index:1000;
 	left: 0;
+	
 	right: 0;
 	top: 0;
 	padding-top:1.8rem;
-	height: 3.25rem;
+	height: 1.25rem;
 	background-image: url(../image/paihangbangbg.png);
 	background-size:7.5rem ;
 	background-repeat:no-repeat ;

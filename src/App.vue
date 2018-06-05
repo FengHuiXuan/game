@@ -18,26 +18,30 @@ export default {
     // try{  }catch(e){}
     // async    await 
         // var bgAudio = document.getElementById('bgAudio');
-        
-        // this.$http.get(`${RM}/home/getsig`).then(res => {
-        //     console.log(res)
-        //     if(res.data){
-        //         let datas = res.data                 
-        //         wx.config({
-        //             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        //             appId: datas.appId, // 必填，公众号的唯一标识
-        //             timestamp: datas.timestamp, // 必填，生成签名的时间戳
-        //             nonceStr: datas.nonceStr, // 必填，生成签名的随机串
-        //             signature:  datas.signature,// 必填，签名
-        //             jsApiList: ['ready','error','previewImage'] // 必填，需要使用的JS接口列表
-        //         });
-        //         bgAudio.play();
-        //         document.addEventListener("WeixinJSBridgeReady", function () {
-        //             bgAudio.play();
-        //         }, false);
 
-        //     }
-        // })
+        let textHref = window.location.href
+        let textHash = window.location.hash
+        let text = textHref.replace(textHash,"")
+
+        this.$http.get(`${RM}/home/getsig?url=${text}`).then(res => {
+            console.log(res)
+            if(res.data){
+                let datas = res.data                 
+                wx.config({
+                    debug: datas.debug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: datas.appId, // 必填，公众号的唯一标识
+                    timestamp: datas.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: datas.nonceStr, // 必填，生成签名的随机串
+                    signature:  datas.signature,// 必填，签名
+                    jsApiList: ['ready','error','previewImage'] // 必填，需要使用的JS接口列表
+                });
+                bgAudio.play();
+                document.addEventListener("WeixinJSBridgeReady", function () {
+                    bgAudio.play();
+                }, false);
+
+            }
+        })
         // this.$http.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxf56e899a56088dbc&secret=c86d184e788328615e586a3ad787a158`).then(res => {
         //     console.log(1,res)
         //      this.$http.get(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${res.data.access_token}&type=jsapi`).then(res => {
@@ -71,6 +75,9 @@ export default {
 </script>
 
 <style>
+#app{
+    height:100%
+}
 .answerMistake{
 	  position: fixed;
     max-width: 80%;
@@ -118,7 +125,7 @@ html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input,
 }
 
 html, body {
-    min-height: 100%;
+    height: 100%;
 }
 
 body {
