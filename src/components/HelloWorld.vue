@@ -14,7 +14,7 @@
 		</div>
     	<div class="tickets_go_huoqu">
     		<div class="datibgse" @click="datibgseling">
-				领取入场券
+				退出
 			</div>
     	</div>
     </div>
@@ -168,7 +168,6 @@ export default {
 		that.dataStateIndex++
 		that.issueListItemIndex = -1
 		if(that.dataStateIndex >= 12){ //答题通过
-
 			let dateTime =  Math.round((new Date().getTime()- that.DateGetTime)/1000) 
 			let getData = JSON.parse(getItem('MY_USER_INFO'))
 			if(!getData) return 
