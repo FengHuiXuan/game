@@ -22,7 +22,9 @@ const removeItem = item => {
     localStorage.removeItem(item)
 }
 let product = true 
+
 let RM = product ? 'https://treasure.17link.cc': '/apis'
+
 var weixin = {
     config: {
         url:'https://treasure.17link.cc/home/getuser',

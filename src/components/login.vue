@@ -119,6 +119,7 @@
 	           } 
 			},
 			challengeBox(){//宝箱作战
+				
 				this.$router.push({path:"/home"})
 			 	// this.$http.post(`${RM}/home/getuser`).then(res => {			
 				// 	if(res.data.state == 1){

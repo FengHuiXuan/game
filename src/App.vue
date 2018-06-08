@@ -14,7 +14,7 @@ import {countDown,RM,weixin,setItem,getItem,sha1,generateMixed,removeItem} from 
 export default {
   name: 'App',
   created(){
-    removeItem('MY_USER_INFO')
+        removeItem('MY_USER_INFO')
     // try{  }catch(e){}
     // async    await 
         // var bgAudio = document.getElementById('bgAudio');
@@ -42,6 +42,8 @@ export default {
 
             }
         })
+
+        
         // this.$http.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxf56e899a56088dbc&secret=c86d184e788328615e586a3ad787a158`).then(res => {
         //     console.log(1,res)
         //      this.$http.get(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${res.data.access_token}&type=jsapi`).then(res => {

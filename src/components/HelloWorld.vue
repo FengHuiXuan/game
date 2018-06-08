@@ -35,7 +35,7 @@
     	<div class="scrollYellows zoomIn animated">
     		<div class="scrollYellows_ ">
     			<div class="scrollYellows_head">
-    				<span >{{issueListItem.issue}}</span>
+    				<span >{{dataStateIndex+1}}、{{issueListItem.issue}}</span>
     			</div>
     			<ul class="scrollYellows_center">
     				<li v-for="item,index in issueListItem.answer" @click="issueListItemIndexitem(index)">
@@ -154,20 +154,21 @@ export default {
 		//	this.pop_up = false
 		//},
 	datibgseling(){ //领取优惠券
-	this.preferentialTicket = false
-	this.gongxiyouhui = true
+		this.preferentialTicket = false
+		this.gongxiyouhui = true
 	},
 	subit(){ //提交 回答问题
 		let that = this
 		if(that.issueListItemIndex == -1) return
 		if(!that.issueListItem.answer[that.issueListItemIndex].correct){				
-			Toast({message: '回答错误',duration: 500});
-			//that.pop_up = true
+			Toast({message: '回答错误重新挑战',duration: 500});
+			that.randomMess()
 			return
 		} 
 		that.dataStateIndex++
 		that.issueListItemIndex = -1
 		if(that.dataStateIndex >= 12){ //答题通过
+
 			let dateTime =  Math.round((new Date().getTime()- that.DateGetTime)/1000) 
 			let getData = JSON.parse(getItem('MY_USER_INFO'))
 			if(!getData) return 
@@ -196,7 +197,6 @@ export default {
 		let data = that.issueList.sort((a,b) => {
 			return Math.random()-0.5
 		})	
-		that.DateGetTime = new Date().getTime()
 		let getData = JSON.parse(getItem('MY_USER_INFO'))
 		if(!getData) return 
 		that.$http.get(`${RM}/home/getcount/${getData.id}`).then(res => {
@@ -204,6 +204,7 @@ export default {
 			if(res.data.state == 1){
 				if (res.data.sum < 3) {
 					MessageBox.confirm('你还有'+(3-res.data.sum )+'次答题机会确定开始答题?').then(action => {
+						that.DateGetTime = new Date().getTime()
 						that.issueList = data
 						that.dataState = true
 						that.issueListItem = that.issueList[0]
@@ -213,6 +214,18 @@ export default {
 				}
 			}
 		})
+	},
+	randomMess(){
+		let that = this
+		let data = that.issueList.sort((a,b) => {
+			return Math.random()-0.5
+		})
+		that.DateGetTime = new Date().getTime()	
+		that.issueList = data
+		that.issueListItem = that.issueList[0]
+		that.dataStateIndex = 0
+		that.issueListItemIndex = -1
+		console.log(1)
 	},
 	issueListItemIndexitem(index){ //答题ictive
 		this.issueListItemIndex = index
