@@ -13,14 +13,14 @@ axios.defaults.timeout = 2000
 axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
 function isweixin() {
-		var ua = window.navigator.userAgent.toLowerCase();
-		if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-				return true;
-		} else {
-				return false;
-		}
+	var ua = window.navigator.userAgent.toLowerCase();
+	if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+			return true;
+	} else {
+			return false;
+	}
 }
-let state = true
+let state = false
 let pr = state?isweixin():true
 if(pr){
 	new Vue({

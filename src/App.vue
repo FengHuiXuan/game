@@ -13,16 +13,21 @@ import {countDown,RM,weixin,setItem,getItem,sha1,generateMixed,removeItem} from 
 
 export default {
   name: 'App',
+  watch:{
+      '$route':res => {
+          console.log(res)
+      }
+  },
   created(){
+
         removeItem('MY_USER_INFO')
     // try{  }catch(e){}
     // async    await 
         // var bgAudio = document.getElementById('bgAudio');
-
+        this.$router.push({path:"/"})
         let textHref = window.location.href
         let textHash = window.location.hash
         let text = textHref.replace(textHash,"")
-
         this.$http.get(`${RM}/home/getsig?url=${text}`).then(res => {
             console.log(res)
             if(res.data){
@@ -39,7 +44,6 @@ export default {
                 document.addEventListener("WeixinJSBridgeReady", function () {
                     bgAudio.play();
                 }, false);
-
             }
         })
 
