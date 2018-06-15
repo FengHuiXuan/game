@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import {issueData} from '../issueData.js'
+import {issueData} from '../issueData2.js'
 import {countDown,RM,weixin,setItem,getItem} from '../method.js'
 import { Toast ,MessageBox,InfiniteScroll } from 'mint-ui';
 
@@ -105,20 +105,20 @@ export default {
 	    }
   },
   async created(){
-  	// if(!JSON.parse(getItem('MY_USER_INFO'))){
-	// 		try{  
-	// 			let res = await this.$http.post(`${RM}/home/getuser`)
-	// 			console.log('这是logingetuser',res)
-	// 			if(res.data.state == 1){
-	// 				let data = res.data.data
-	// 				setItem('MY_USER_INFO',JSON.stringify(data));
-	// 			}else if(res.data.state == 0){
-	// 				window.location.href = 'https://treasure.17link.cc'
-	// 			}
-	// 		}catch(e){
-	// 			window.location.href = 'https://treasure.17link.cc'
-	// 		} 			
-	// 	}
+  	if(!JSON.parse(getItem('MY_USER_INFO'))){
+			try{  
+				let res = await this.$http.post(`${RM}/home/getuser`)
+				console.log('这是logingetuser',res)
+				if(res.data.state == 1){
+					let data = res.data.data
+					setItem('MY_USER_INFO',JSON.stringify(data));
+				}else if(res.data.state == 0){
+					window.location.href = 'https://treasure.17link.cc'
+				}
+			}catch(e){
+				window.location.href = 'https://treasure.17link.cc'
+			} 			
+		}
 	},
   methods:{
 	openImg(e){
@@ -169,8 +169,6 @@ export default {
 		that.issueListItemIndex = -1
 		if(that.dataStateIndex >= 12){ //答题通过
 			let dateTime =  Math.round((new Date().getTime()- that.DateGetTime)/1000) 
-			let getData = JSON.parse(getItem('MY_USER_INFO'))
-			if(!getData) return 
 			let objData = {
 				id:getData.id,
 				time:dateTime

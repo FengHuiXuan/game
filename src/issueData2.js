@@ -25,7 +25,7 @@ export const issueData = [
 		]
 	},
 	{
-		issue:"AFY19 HP将持续进行产品升级，以下关于Egida和Protecta的描述中错误的是：",
+		issue:"FY19 HP将持续进行产品升级，以下关于Egida和Protecta的描述中错误的是：",
 		answer:[
 			{
 				order:'A',
@@ -105,7 +105,7 @@ export const issueData = [
 		answer:[
 			{
 				order:'A',
-				texts:"下列选项，哪些是FY19远程随访的生意模式？",
+				texts:"电商平台零售",
 				correct:false
 			},
 			{

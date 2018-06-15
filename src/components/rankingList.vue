@@ -55,20 +55,20 @@
 			}
 		},
 		async created(){
-			// if(!JSON.parse(getItem('MY_USER_INFO'))){
-			// 	try{  
-			// 		let res = await this.$http.post(`${RM}/home/getuser`)
-			// 		console.log('这是logingetuser',res)
-			// 		if(res.data.state == 1){
-			// 			let data = res.data.data
-			// 			setItem('MY_USER_INFO',JSON.stringify(data));
-			// 		}else if(res.data.state == 0){
-			// 			window.location.href = 'https://treasure.17link.cc'
-			// 		}
-			// 	}catch(e){
-	        //        window.location.href = 'https://treasure.17link.cc'
-	     	// 	}	
-			// }
+			if(!JSON.parse(getItem('MY_USER_INFO'))){
+				try{  
+					let res = await this.$http.post(`${RM}/home/getuser`)
+					console.log('这是logingetuser',res)
+					if(res.data.state == 1){
+						let data = res.data.data
+						setItem('MY_USER_INFO',JSON.stringify(data));
+					}else if(res.data.state == 0){
+						window.location.href = 'https://treasure.17link.cc'
+					}
+				}catch(e){
+	               window.location.href = 'https://treasure.17link.cc'
+	     		}	
+			}
 			this.teamList()
 		},
 		methods:{

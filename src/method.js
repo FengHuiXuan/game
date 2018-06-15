@@ -21,7 +21,7 @@ const setItem = (item,value) => {
 const removeItem = item => {
     localStorage.removeItem(item)
 }
-let product = false 
+let product = true 
 
 let RM = product ? 'https://treasure.17link.cc': '/apis'
 

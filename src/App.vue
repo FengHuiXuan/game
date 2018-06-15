@@ -24,7 +24,7 @@ export default {
     // try{  }catch(e){}
     // async    await 
         // var bgAudio = document.getElementById('bgAudio');
-        this.$router.push({path:"/"})
+        //this.$router.push({path:"/"})
         let textHref = window.location.href
         let textHash = window.location.hash
         let text = textHref.replace(textHash,"")
@@ -43,7 +43,7 @@ export default {
                 bgAudio.play();
                 document.addEventListener("WeixinJSBridgeReady", function () {
                     bgAudio.play();
-                }, false);
+                }, false);``
             }
         })
 
